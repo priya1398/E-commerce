@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="122b71eb-e7dc-4f76-ba09-bdffe8ad816f" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1ZTaqOIFQhYptX8qSq0dKkAGkde" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Priya\PycharmProjects\e_commerce\templates" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.main">
+    <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="e_commerce" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="e_commerce" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.app" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="122b71eb-e7dc-4f76-ba09-bdffe8ad816f" name="Default Changelist" comment="" />
+      <created>1584865729216</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1584865729216</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="0" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584902944163">
+      <screen x="0" y="0" width="1280" height="685" />
+    </state>
+    <state x="0" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.685@0.0.1280.685" timestamp="1584902944163" />
+    <state x="185" y="0" key="DBNavigator.ProjectSettingsDialog" timestamp="1584867301163">
+      <screen x="0" y="0" width="1280" height="685" />
+    </state>
+    <state x="185" y="0" key="DBNavigator.ProjectSettingsDialog/0.0.1280.685@0.0.1280.685" timestamp="1584867301163" />
+    <state x="844" y="162" key="FileChooserDialogImpl" timestamp="1584867094853">
+      <screen x="0" y="0" width="1280" height="685" />
+    </state>
+    <state x="844" y="162" key="FileChooserDialogImpl/0.0.1280.685@0.0.1280.685" timestamp="1584867094853" />
+    <state x="463" y="259" key="Github.CreateGistDialog" timestamp="1584910725508">
+      <screen x="0" y="0" width="1280" height="685" />
+    </state>
+    <state x="463" y="259" key="Github.CreateGistDialog/0.0.1280.685@0.0.1280.685" timestamp="1584910725508" />
+    <state width="1259" height="255" key="GridCell.Tab.0.bottom" timestamp="1584914320221">
+      <screen x="0" y="0" width="1280" height="685" />
+    </state>
+    <state width="1259" height="255" key="GridCell.Tab.0.bottom/0.0.1280.685@0.0.1280.685" timestamp="1584914320221" />
+    <state width="1259" height="255" key="GridCell.Tab.0.center" timestamp="1584914320221">
+      <screen x="0" y="0" width="1280" height="685" />
+    </state>
+    <state width="1259" height="255" key="GridCell.Tab.0.center/0.0.1280.685@0.0.1280.685" timestamp="1584914320221" />
+    <state width="1259" height="255" key="GridCell.Tab.0.left" timestamp="1584914320220">
+      <screen x="0" y="0" width="1280" height="685" />
+    </state>
+    <state width="1259" height="255" key="GridCell.Tab.0.left/0.0.1280.685@0.0.1280.685" timestamp="1584914320220" />
+    <state width="1259" height="255" key="GridCell.Tab.0.right" timestamp="1584914320221">
+      <screen x="0" y="0" width="1280" height="685" />
+    </state>
+    <state width="1259" height="255" key="GridCell.Tab.0.right/0.0.1280.685@0.0.1280.685" timestamp="1584914320221" />
+    <state x="187" y="0" key="SettingsEditor" timestamp="1584873688247">
+      <screen x="0" y="0" width="1280" height="685" />
+    </state>
+    <state x="187" y="0" key="SettingsEditor/0.0.1280.685@0.0.1280.685" timestamp="1584873688247" />
+    <state x="339" y="167" key="com.intellij.ide.util.TipDialog" timestamp="1584903042569">
+      <screen x="0" y="0" width="1280" height="685" />
+    </state>
+    <state x="339" y="167" key="com.intellij.ide.util.TipDialog/0.0.1280.685@0.0.1280.685" timestamp="1584903042569" />
+    <state x="234" y="0" width="744" height="685" key="find.popup" timestamp="1584902963905">
+      <screen x="0" y="0" width="1280" height="685" />
+    </state>
+    <state x="234" y="0" width="744" height="685" key="find.popup/0.0.1280.685@0.0.1280.685" timestamp="1584902963905" />
+  </component>
+</project>
