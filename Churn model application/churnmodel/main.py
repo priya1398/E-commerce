@@ -19,24 +19,25 @@ def predict(dataset):
         return 'No'
 
 
-
 def pre_process(one, two, three, four, five, six, seven):
     list = [one, two, three, four, five, six, seven]
     return list
 
 
-@app.route("/predict", methods=['GET','POST'])
+@app.route("/predict", methods=['GET', 'POST'])
 def run():
-    prediction = ' ';
+    prediction = ' '
     if request.method == 'POST':
         message = request.form
         print(message)
         data = pre_process(message['delivery'], message['price'], message['website'], message['product'],
-                           message['loyalty'], message['security'],message['customerservice'])
+                           message['loyalty'], message['security'], message['customerservice'])
         prediction = predict(data)
         print(prediction)
 
-    return render_template( 'predict.html' ,result=prediction);
+    return render_template('predict.html', result=prediction)
+
+
 if __name__ == '__main__':
-    app.debug = True;
+    app.debug = True
     app.run()

@@ -4,7 +4,6 @@ import MySQLdb.cursors
 import re
 
 
-
 app = Flask(__name__)
 
 # Change this to your secret key (can be anything, it's for extra protection)
@@ -16,13 +15,14 @@ app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'puppy13'
 app.config['MYSQL_DB'] = 'pythonlogin'
 
-# Intialize MySQL
+# Initialize MySQL
 mysql = MySQL(app)
+
 
 # http://localhost:5000/pythonlogin/ - this will be the login page, we need to use both GET and POST requests
 @app.route('/pythonlogin/', methods=['GET', 'POST'])
 def login():
-# Output message if something goes wrong...
+    # Output message if something goes wrong...
     msg = ''
     # Check if "username" and "password" POST requests exist (user submitted form)
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
@@ -34,7 +34,7 @@ def login():
         cursor.execute('SELECT * FROM accounts WHERE username = %s AND password = %s', (username, password))
         # Fetch one record and return result
         account = cursor.fetchone()
-                # If account exists in accounts table in out database
+        # If account exists in accounts table in out database
         if account:
             # Create session data, we can access this data in other routes
             session['loggedin'] = True
@@ -49,18 +49,20 @@ def login():
     return render_template('index.html', msg='')
 
 
-# http://localhost:5000/pythinlogin/register - this will be the registration page, we need to use both GET and POST requests
+# http://localhost:5000/pythonlogin/register - this will be the registration page,
+# we need to use both GET and POST requests
 @app.route('/pythonlogin/register', methods=['GET', 'POST'])
 def register():
     # Output message if something goes wrong...
     msg = ''
     # Check if "username", "password" and "email" POST requests exist (user submitted form)
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
+    if request.method == \
+            'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
         # Create variables for easy access
         username = request.form['username']
         password = request.form['password']
         email = request.form['email']
-                # Check if account exists using MySQL
+        # Check if account exists using MySQL
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM accounts WHERE username = %s OR email = %s', (username, email))
         account = cursor.fetchone()
@@ -84,7 +86,8 @@ def register():
     # Show registration form with message (if any)
     return render_template('register.html', msg=msg)
 
-# http://localhost:5000/pythinlogin/home - this will be the home page, only accessible for loggedin users
+
+# http://localhost:5000/pythonlogin/home - this will be the home page, only accessible for loggedin users
 @app.route('/pythonlogin/home')
 def home():
     # Check if user is loggedin
@@ -95,8 +98,5 @@ def home():
     return redirect(url_for('login'))
 
 
-
-
-
-if __name__ =='__main__':
-	app.run()
+if __name__ == '__main__':
+    app.run()
