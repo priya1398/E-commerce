@@ -19,16 +19,18 @@ def index():
     if request.method == "POST":
         details = request.form
         userName = details['username']
-        e_mail= details['email']
-        password=details['password']
-        confirmpassword=details['confirmpassword']
+        e_mail = details['email']
+        password = details['password']
+        confirmpassword = details['confirmpassword']
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO user_reg(Username,E_Mail,password,confirmpassword) VALUES (%s, %s,%s, %s)", (userName, e_mail,password,confirmpassword))
+        cur.execute("INSERT INTO user_reg(Username,E_Mail,password,confirmpassword) VALUES (%s, %s,%s, %s)",
+                    (userName, e_mail, password, confirmpassword))
         mysql.connection.commit()
         cur.close()
         return render_template('index.html')
 
     return render_template('index.html')
+
 
 if __name__ == '__main__':
     app.run()
