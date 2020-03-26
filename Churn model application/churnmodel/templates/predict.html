@@ -1,94 +1,252 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Customer Satisfaction Survey</title>
+     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+        body {
+          background: #f6f5f7;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          font-family: 'Montserrat', sans-serif;
+          margin: -10px 0 50px;
+        }
+
+        form {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 6px 0 rgba(0, 0, 0, 0.19);
+            background-color: #FFFFFF;
+            align-items: center;
+          justify-content: center;
+          padding: 0 50px;
+
+        }
+
+        input[type=submit] {
+          border-radius: 20px;
+          border: 1px solid #FF4B2B;
+          background-color: #FF4B2B;
+          color: #FFFFFF;
+          font-size: 12px;
+          font-weight: bold;
+          padding: 12px 45px;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          transition: 0.18s;
+        }
+
+        input:hover[type=submit] {
+          transform: scale(0.96);
+          background-color: #FFFFFF;
+          color: #FF4B2B;
+        }
+
+        input {
+          background-color: #eee;
+          border: none;
+          padding: 12px 15px;
+          margin: 8px 0;
+        }
+
+        label {
+            font-size: 14px;
+            color: #A8A8A8;
+        }
+
+        p {
+            font-size: 18px;
+            font-weight: 100;
+            line-height: 20px;
+            letter-spacing: 0.5px;
+            margin: 20px 0 10px;
+        }
+
+        .question{
+        width: 100%;
+        }
+        .checkboxes {
+            display: inline-block;
+            text-align: center;
+            width: 20%;
+        }
+        .checkboxes label {
+            display: block;
+        }
+
+        .buttonHolder {
+            text-align: center;
+        }
+
+    </style>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<h1>Churn Prediction Model</h1>
+    <h1>Customer Satisfaction Survey</h1>
 
-<form  action=" http://127.0.0.1:5000/predict" method="post">
-  <p>Please select the Delivery Quality: </p>
-  <input type="radio" id="vbad1" name="delivery" value="vbad">
-  <label for="vbad1">Very Bad</label><br>
-  <input type="radio" id="bad1" name="delivery" value="bad">
-  <label for="bad1">Bad</label><br>
-  <input type="radio" id="good1" name="delivery" value="good">
-  <label for="good1">Good</label><br>
-  <input type="radio" id="vgood1" name="delivery" value="vgood">
-  <label for="vgood1">Very Good</label>
+    <form  action=" http://127.0.0.1:5000/predict" method="post">
 
-  <br>
 
-  <p>Please select Products Pricing: </p>
-  <input type="radio" id="vbad2" name="price" value="vbad">
-  <label for="vbad2">Very Bad</label><br>
-  <input type="radio" id="bad2" name="price" value="bad">
-  <label for="bad2">Bad</label><br>
-  <input type="radio" id="good2" name="price" value="good">
-  <label for="good2">Good</label><br>
-  <input type="radio" id="vgood2" name="price" value="vgood">
-  <label for="vgood2">Very Good</label>
+        <p>Please rate our delivery quality: </p>
+        <div class="question">
+            <div class="checkboxes">
+                <input type="radio" id="vbad1" name="delivery" value="vbad" required>
+                <label for="vbad1">Very Bad</label>
+            </div>
+            <div class="checkboxes">
+                <input type="radio" id="bad1" name="delivery" value="bad">
+                <label for="bad1">Bad</label>
+            </div>
+            <div class="checkboxes">
+                <input type="radio" id="good1" name="delivery" value="good">
+                <label for="good1">Good</label>
+            </div>
+            <div class="checkboxes">
+                <input type="radio" id="vgood1" name="delivery" value="vgood">
+                <label for="vgood1">Very Good</label>
+            </div>
+        </div>
 
-  <br>
+        <br>
 
-  <p>Please select Website Design and Ease of Use: </p>
-  <input type="radio" id="vbad3" name="website" value="vbad">
-  <label for="vbad3">Very Bad</label><br>
-  <input type="radio" id="bad3" name="website" value="bad">
-  <label for="bad3">Bad</label><br>
-  <input type="radio" id="good3" name="website" value="good">
-  <label for="good3">Good</label><br>
-  <input type="radio" id="vgood3" name="website" value="vgood">
-  <label for="vgood3">Very Good</label>
-  <br>
+        <p>Please rate our product(s) pricing: </p>
+        <div class="question">
+            <div class="checkboxes">
+                <input type="radio" id="vbad2" name="price" value="vbad" required>
+                <label for="vbad2">Very Expensive</label>
+            </div>
+            <div class="checkboxes">
+                <input type="radio" id="bad2" name="price" value="bad">
+                <label for="bad2">Slightly Overpriced</label>
+            </div>
+            <div class="checkboxes">
+                <input type="radio" id="good2" name="price" value="good">
+                <label for="good2">Reasonably Priced</label>
+            </div>
+            <div class="checkboxes">
+                <input type="radio" id="vgood2" name="price" value="vgood">
+                <label for="vgood2">Money Saving</label>
+            </div>
+        </div>
 
-  <p>Please select Product Quailty from the company: </p>
-  <input type="radio" id="vbad4" name="product" value="vbad">
-  <label for="vbad4">Very Bad</label><br>
-  <input type="radio" id="bad4" name="product" value="bad">
-  <label for="bad4">Bad</label><br>
-  <input type="radio" id="good4" name="product" value="good">
-  <label for="good4">Good</label><br>
-  <input type="radio" id="vgood4" name="product" value="vgood">
-  <label for="vgood4">Very Good</label>
-  <br>
+        <br>
 
-  <p>What is your loyalty level to this company: </p>
-  <input type="radio" id="low" name="loyalty" value="low">
-  <label for="low">Low</label><br>
-  <input type="radio" id="medium" name="loyalty" value="medium">
-  <label for="low">Medium</label><br>
-  <input type="radio" id="high" name="loyalty" value="high">
-  <label for="high">High</label>
-  <br>
-<p>Please select Security Level: </p>
-  <input type="radio" id="vbad5" name="security" value="vbad">
-  <label for="vbad5">Very Bad</label><br>
-  <input type="radio" id="bad5" name="security" value="bad">
-  <label for="bad5">Bad</label><br>
-  <input type="radio" id="good5" name="security" value="good">
-  <label for="good5">Good</label><br>
-  <input type="radio" id="vgood5" name="security" value="vgood">
-  <label for="vgood5">Very Good</label>
-  <br>
+        <p>Please rate our website design and accessibility: </p>
+        <div class="question">
+            <div class="checkboxes">
+                <input type="radio" id="vbad3" name="website" value="vbad" required>
+                <label for="vbad3">Very Bad</label>
+            </div>
+            <div class="checkboxes">
+                <input type="radio" id="bad3" name="website" value="bad">
+                <label for="bad3">Bad</label>
+            </div>
+            <div class="checkboxes">
+                <input type="radio" id="good3" name="website" value="good">
+                <label for="good3">Good</label>
+            </div>
+            <div class="checkboxes">
+                <input type="radio" id="vgood3" name="website" value="vgood">
+                <label for="vgood3">Very Good</label>
+            </div>
+        </div>
 
-  <p>Please select customer Service Satisfaction Level: </p>
-  <input type="radio" id="vbad7" name="customerservice" value="vbad">
-  <label for="vbad7">Very Bad</label><br>
-  <input type="radio" id="bad7" name="customerservice" value="bad">
-  <label for="bad7">Bad</label><br>
-  <input type="radio" id="good7" name="customerservice" value="good">
-  <label for="good7">Good</label><br>
-  <input type="radio" id="vgood7" name="customerservice" value="vgood">
-  <label for="vgood7">Very Good</label>
-  <br>
-  <br>
-  <input type="submit" value="Submit Questionnaire">
-</form>
-	<div>
-	<p style="font-weight: bold">Predictions</p>
-	<p>Will this user churn? {{ result }}</p>
-	</div>
+        <br>
+
+        <p>Please rate the quality of our product(s): </p>
+        <div class="question">
+            <div class="checkboxes">
+                <input type="radio" id="vbad4" name="product" value="vbad" required>
+                <label for="vbad4">Very Bad</label>
+            </div>
+            <div class="checkboxes">
+                <input type="radio" id="bad4" name="product" value="bad">
+                <label for="bad4">Bad</label>
+            </div>
+            <div class="checkboxes">
+                <input type="radio" id="good4" name="product" value="good">
+                <label for="good4">Good</label>
+            </div>
+            <div class="checkboxes">
+                <input type="radio" id="vgood4" name="product" value="vgood">
+                <label for="vgood4">Very Good</label>
+            </div>
+        </div>
+
+        <br>
+
+        <p>What is your loyalty level to our company? </p>
+        <div class="question">
+            <div class="checkboxes">
+                <input type="radio" id="low" name="loyalty" value="low" required>
+                <label for="low">Low</label>
+            </div>
+            <div class="checkboxes">
+                <input type="radio" id="medium" name="loyalty" value="medium">
+                <label for="low">Medium</label>
+            </div>
+            <div class="checkboxes">
+                <input type="radio" id="high" name="loyalty" value="high">
+                <label for="high">High</label>
+            </div>
+        </div>
+
+        <br>
+
+        <p>How secure do you feel using our service? </p>
+        <div class="question">
+            <div class="checkboxes">
+                <input type="radio" id="vbad5" name="security" value="vbad" required>
+                <label for="vbad5">Very Insecure</label>
+            </div>
+            <div class="checkboxes">
+                <input type="radio" id="bad5" name="security" value="bad">
+                <label for="bad5">Insecure</label>
+            </div>
+            <div class="checkboxes">
+                <input type="radio" id="good5" name="security" value="good">
+                <label for="good5">Secure</label>
+            </div>
+            <div class="checkboxes">
+                <input type="radio" id="vgood5" name="security" value="vgood">
+                <label for="vgood5">Very Secure</label>
+            </div>
+        </div>
+
+        <br>
+
+        <p>Please rate our customer service: </p>
+        <div class="question">
+            <div class="checkboxes">
+                <input type="radio" id="vbad7" name="customerservice" value="vbad" required>
+                <label for="vbad7">Very Bad</label>
+            </div>
+            <div class="checkboxes">
+                <input type="radio" id="bad7" name="customerservice" value="bad">
+                <label for="bad7">Bad</label>
+            </div>
+            <div class="checkboxes">
+                <input type="radio" id="good7" name="customerservice" value="good">
+                <label for="good7">Good</label>
+            </div>
+            <div class="checkboxes">
+                <input type="radio" id="vgood7" name="customerservice" value="vgood">
+                <label for="vgood7">Very Good</label>
+            </div>
+        </div>
+
+        <br>
+        <br>
+
+        <div class="buttonHolder">
+            <input type="submit" value="Submit survey">
+        </div>
+    </form>
+    <div>
+        <p style="font-weight: bold">Predictions</p>
+        <p>Will this user churn? {{ result }}</p>
+    </div>
 </body>
 </html>
