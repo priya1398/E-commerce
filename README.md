@@ -1,3 +1,7 @@
+TODO: Modify main.py to change the package of app configuration
+
+TODO: Clicking "medium" on the text will select "low", have to click on the radio to select middle.
+
 1.Import the 'pythonlogin.sql' file,
 
 2.Download pycharm,
