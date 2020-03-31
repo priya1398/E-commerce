@@ -1,7 +1,9 @@
 import operator
 
+import MySQLdb
 from flask import Flask, render_template, request, redirect, url_for, session
 import pymysql.cursors
+import MySQLdb.cursors
 
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics.pairwise import cosine_similarity
@@ -33,13 +35,13 @@ app.config['MYSQL_DB'] = 'pythonlogin'
 
 mysql = pymysql.connect(host='localhost',
                          user='root',
-                         password='sarahmmmm',
+                         password='puppy13',
                          db='pythonlogin',
                          charset='utf8mb4',
                          cursorclass=pymysql.cursors.DictCursor)
 
 # http://localhost:5000/pythonlogin/ - this will be the login page, we need to use both GET and POST requests
-@app.route('/pythonlogin/', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     # Output message if something goes wrong...
     msg = ''
@@ -64,13 +66,13 @@ def login():
         else:
             # Account doesnt exist or username/password incorrect
             msg = 'Incorrect username/password!'
-            return render_template('index.html', msg='Incorrect username/password!')
-    return render_template('index.html', msg='')
+            return render_template('login.html', msg='Incorrect username/password!')
+    return render_template('login.html', msg='')
 
 
 # http://localhost:5000/pythonlogin/register - this will be the registration page,
 # we need to use both GET and POST requests
-@app.route('/pythonlogin/register', methods=['GET', 'POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     # Output message if something goes wrong...
     msg = ''
@@ -106,7 +108,7 @@ def register():
     return render_template('register.html', msg=msg)
 
 # http://localhost:5000/pythinlogin/home - this will be the home page, only accessible for loggedin users
-@app.route('/pythonlogin/home')
+@app.route('/home')
 def home():
     # Check if user is loggedin
     if 'loggedin' in session:
@@ -117,6 +119,12 @@ def home():
         # Get all the movies for the user based on rated and non rated
         cursor.execute('select a.movieId,a.movieTitle,a.imdbId,a.movieDirector,a.movieProtagonist,a.movieGenre,a.movieRank,a.avg_rating AS user_rating,b.avg_rating,b.total_ratings,a.flag FROM ((SELECT DISTINCT movieId,movieTitle,imdbId,movieDirector,movieProtagonist,movieGenre,movieRank,AVG(IMDBRating) AS avg_rating, COUNT(DISTINCT b.fkCustomerid) AS total_ratings,"Not-Rated" AS flag FROM movies a LEFT JOIN movieRatings b ON a.movieId = b.fkmovieId WHERE movieId NOT IN (SELECT DISTINCT movieId FROM movies a LEFT JOIN movieRatings b ON a.movieId = b.fkmovieId WHERE b.fkCustomerid = %s) GROUP BY 1,2,3,4,5,6,7 ORDER BY 1,2,3,4,5,6,7) UNION (SELECT DISTINCT movieId,movieTitle,imdbId,movieDirector,movieProtagonist,movieGenre,movieRank,AVG(rating) AS avg_rating, COUNT(DISTINCT b.fkCustomerid) AS total_ratings,"Rated" AS flag FROM movies a LEFT JOIN movieRatings b ON a.movieId = b.fkmovieId WHERE b.fkCustomerid = %s GROUP BY 1,2,3,4,5,6,7 ORDER BY 1,2,3,4,5,6,7)) a INNER JOIN (SELECT DISTINCT fkmovieID,COUNT(DISTINCT fkCustomerId) as total_ratings,AVG(IMDBrating) AS avg_rating FROM movieRatings a INNER JOIN movies b ON a.fkmovieId = b.movieID GROUP BY 1) b ON a.movieId = b.fkmovieId',
                        (session['id'],session['id']))
+        cur = mysql.cursor(pymysql.cursors.DictCursor)
+        cur.execute("select * from movies ")
+        data = cur.fetchall()
+        cur1 = mysql.cursor(pymysql.cursors.DictCursor)
+        cur1.execute("select * from movies where movieRank <= 10  ")
+        data1 = cur1.fetchall()
 
 
         #  STEP 1: Store in Data Frame
@@ -166,9 +174,21 @@ def home():
         for x in list_ranked:
             results[x].append(rank)
             rank+=1
-        return render_template('home.html',username=session['username'],movieContent=results)
+        return render_template('home.html',username=session['username'],movieContent=results,data=data,data1=data1)
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))
+
+@app.route('/index')
+def index():
+
+    cur = mysql.cursor(pymysql.cursors.DictCursor)
+    cur.execute("select * from movies order by  RAND() ")
+    data = cur.fetchall()
+    cur1 = mysql.cursor(pymysql.cursors.DictCursor)
+    cur1.execute("select * from movies where movieRank <= 10  ")
+    data1 = cur1.fetchall()
+    return render_template('index.html',  data=data,data1=data1)
+
 
 
 if __name__ =='__main__':
