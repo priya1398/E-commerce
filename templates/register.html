@@ -254,29 +254,29 @@ footer a {
         </style>
 	</head>
 	<body class="home">
-<div class="container" id="container">
-  <div class="form-container sign-in-container">
+<div class="container" id="container" style="font-family:monospace,monospace;">
+  <div class="form-container sign-in-container" style="font-family:monospace,monospace;">
 		<div class="register">
-			<h1>Register</h1>
+			<h1 style="font-family:monospace,monospace;">Register</h1>
 			<div class="links">
-				<a href="{{ url_for('login') }}">Login</a>
-				<a href="{{ url_for('register') }}" class="active">Register</a>
+				<a href="{{ url_for('index') }}" style="font-family:monospace,monospace;">Home</a>
+				<a href="{{ url_for('login') }}" style="font-family:monospace,monospace;">Login</a>
 			</div>
 			<form action="{{ url_for('register') }}" method="post" autocomplete="off">
 				<label for="username">
 					<i class="fas fa-user"></i>
 				</label>
-				<input type="text" name="username" placeholder="Username" id="username" required>
+				<input type="text" style="font-family:monospace,monospace;" name="username" placeholder="Username" id="username" required>
 				<label for="password">
 					<i class="fas fa-lock"></i>
 				</label>
-				<input type="password" name="password" placeholder="Password" id="password" required>
+				<input type="password" style="font-family:monospace,monospace;" name="password" placeholder="Password" id="password" required>
 				<label for="email">
 					<i class="fas fa-envelope"></i>
 				</label>
-				<input type="email" name="email" placeholder="Email" id="email" required>
+				<input type="email" style="font-family:monospace,monospace;" name="email" placeholder="Email" id="email" required>
 				<div class="msg">{{ msg }}</div>
-				<input type="submit" value="Register">
+				<input type="submit" value="Register" style="font-family:monospace,monospace;">
 			</form>
 		</div>
 
@@ -284,9 +284,9 @@ footer a {
   <div class="overlay-container">
     <div class="overlay">
       <div class="overlay-panel overlay-right">
-        <h1>Welcome Back!</h1>
-        <p>To keep connected with us please login with your personal info</p>
-		  <a href="{{ url_for('login') }}">Login</a>
+        <h1 style="font-family:monospace,monospace;">Welcome Back!</h1>
+        <p style="font-family:monospace,monospace;">To keep connected with us please login with your personal info</p>
+		  <a href="{{ url_for('login') }}" style="font-family:monospace,monospace;">Login</a>
       </div>
 
     </div>
