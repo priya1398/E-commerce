@@ -34,8 +34,9 @@ def run():
                            message['loyalty'], message['security'], message['customerservice'])
         prediction = predict(data)
         print(prediction)
+        return render_template('result.html', result=prediction)
 
-    return render_template('predict.html', result=prediction)
+    return render_template('predict.html')
 
 
 if __name__ == '__main__':
