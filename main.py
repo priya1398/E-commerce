@@ -1,9 +1,7 @@
 import operator
 
-import MySQLdb
 from flask import Flask, render_template, request, redirect, url_for, session
 import pymysql.cursors
-import MySQLdb.cursors
 
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics.pairwise import cosine_similarity
@@ -117,15 +115,11 @@ def home():
 
 
         # Get all the movies for the user based on rated and non rated
-        cursor.execute('select a.movieId,a.movieTitle,a.imdbId,a.movieDirector,a.movieProtagonist,a.movieGenre,a.movieRank,a.avg_rating AS user_rating,b.avg_rating,b.total_ratings,a.flag FROM ((SELECT DISTINCT movieId,movieTitle,imdbId,movieDirector,movieProtagonist,movieGenre,movieRank,AVG(IMDBRating) AS avg_rating, COUNT(DISTINCT b.fkCustomerid) AS total_ratings,"Not-Rated" AS flag FROM movies a LEFT JOIN movieRatings b ON a.movieId = b.fkmovieId WHERE movieId NOT IN (SELECT DISTINCT movieId FROM movies a LEFT JOIN movieRatings b ON a.movieId = b.fkmovieId WHERE b.fkCustomerid = %s) GROUP BY 1,2,3,4,5,6,7 ORDER BY 1,2,3,4,5,6,7) UNION (SELECT DISTINCT movieId,movieTitle,imdbId,movieDirector,movieProtagonist,movieGenre,movieRank,AVG(rating) AS avg_rating, COUNT(DISTINCT b.fkCustomerid) AS total_ratings,"Rated" AS flag FROM movies a LEFT JOIN movieRatings b ON a.movieId = b.fkmovieId WHERE b.fkCustomerid = %s GROUP BY 1,2,3,4,5,6,7 ORDER BY 1,2,3,4,5,6,7)) a INNER JOIN (SELECT DISTINCT fkmovieID,COUNT(DISTINCT fkCustomerId) as total_ratings,AVG(IMDBrating) AS avg_rating FROM movieRatings a INNER JOIN movies b ON a.fkmovieId = b.movieID GROUP BY 1) b ON a.movieId = b.fkmovieId',
+        cursor.execute('select a.movieId,a.movieTitle,a.imdbId,a.movieDirector,a.movieProtagonist,a.movieGenre,a.movieRank,a.avg_rating AS user_rating,b.avg_rating,b.total_ratings,a.Image,a.flag FROM ((SELECT DISTINCT movieId,movieTitle,imdbId,movieDirector,movieProtagonist,movieGenre,movieRank,image,AVG(IMDBRating) AS avg_rating, COUNT(DISTINCT b.fkCustomerid) AS total_ratings,"Not-Rated" AS flag FROM movies a LEFT JOIN movieRatings b ON a.movieId = b.fkmovieId WHERE movieId NOT IN (SELECT DISTINCT movieId FROM movies a LEFT JOIN movieRatings b ON a.movieId = b.fkmovieId WHERE b.fkCustomerid = %s) GROUP BY 1,2,3,4,5,6,7,8 ORDER BY 1,2,3,4,5,6,7,8) UNION (SELECT DISTINCT movieId,movieTitle,imdbId,movieDirector,movieProtagonist,movieGenre,movieRank,image,AVG(rating) AS avg_rating, COUNT(DISTINCT b.fkCustomerid) AS total_ratings,"Rated" AS flag FROM movies a LEFT JOIN movieRatings b ON a.movieId = b.fkmovieId WHERE b.fkCustomerid = %s GROUP BY 1,2,3,4,5,6,7,8 ORDER BY 1,2,3,4,5,6,7,8)) a INNER JOIN (SELECT DISTINCT fkmovieID,COUNT(DISTINCT fkCustomerId) as total_ratings,AVG(IMDBrating) AS avg_rating FROM movieRatings a INNER JOIN movies b ON a.fkmovieId = b.movieID GROUP BY 1) b ON a.movieId = b.fkmovieId',
                        (session['id'],session['id']))
         cur = mysql.cursor(pymysql.cursors.DictCursor)
         cur.execute("select * from movies ")
         data = cur.fetchall()
-        cur1 = mysql.cursor(pymysql.cursors.DictCursor)
-        cur1.execute("select * from movies where movieRank <= 10  ")
-        data1 = cur1.fetchall()
-
 
         #  STEP 1: Store in Data Frame
         results = []
@@ -136,7 +130,7 @@ def home():
 
         #Step 2: Use a CountVectorizer that will create a matrix (50,50) with each movie against every movie with the count of similarity in terms of words
         count = CountVectorizer()
-        count_matrix = count.fit_transform(df['movieDirector'].apply(short)+' '+df['movieProtagonist'].apply(short)+' '+df['movieGenre'].apply(short)+' '+(0.5 * round((df['avg_rating']).astype(float))/0.5).astype(str) )
+        count_matrix = count.fit_transform(df['movieDirector'].apply(short)+' '+df['movieProtagonist'].apply(short)+' '+df['movieGenre'].apply(short)+' '+(round((df['avg_rating']).astype(float))).astype(str) )
 
         # the cosine similary is based on the count of similarity of each
 
@@ -148,13 +142,14 @@ def home():
 
         # For each movie that was rated by the user
         df_rated = df.loc[df['flag'] == 'Rated']
+
         for index1,row1 in df_rated.iterrows():
 
             # find the cosine similarity of all the movies for this specific movie
             score_series = pd.Series(cos_sims[index1]).sort_values(ascending=False)
 
             # find the user rating for this specific movie
-            movie_rated = round(float(df.iloc[index1]['user_rating'])*0.1,2)
+            movie_rated = round(float(df.iloc[index1]['user_rating'])*10,2)
 
             # ensuring we are only including movies that are not rated already
             for x,y in score_series.iteritems():
@@ -165,16 +160,42 @@ def home():
 
         # The following code ranks each movie
         sorted_by_second = sorted(recommended_movies1, key=lambda tup: tup[1],reverse=True)
+
         list_ranked = []
+        counter = 0
         for x in range(0,len(sorted_by_second)):
             if sorted_by_second[x][0] not in list_ranked:
                 list_ranked.append(sorted_by_second[x][0])
+                counter+=1
+            if counter == 10:
+                break
 
+        top_10 = []
         rank = 1
         for x in list_ranked:
             results[x].append(rank)
+            top_10.append({
+                'movieId': results[x][0],
+                'movieRank': results[x][12],
+                'movieTitle': results[x][1],
+                'imdbID': results[x][2],
+                'movieDirector': results[x][3],
+                'movieProtagonist': results[x][4],
+                'movieGenre': results[x][5],
+                'User_rating': results[x][6],
+                'IMDBRating': results[x][7],
+                'total_people_rated': results[x][9],
+                'image_url': results[x][10],
+                'Flag': results[x][11]})
             rank+=1
-        return render_template('home.html',username=session['username'],movieContent=results,data=data,data1=data1)
+
+        df_rated = df_rated.sort_values(by='user_rating', axis=0, ascending=False, inplace=False, kind='quicksort',na_position='last')
+        rated = []
+        rated_movies = df_rated.to_dict('index')
+        for index in rated_movies:
+            rated.append(rated_movies[index])
+
+        return render_template('home.html',username=session['username'],data=data,data1=top_10,data2=rated)
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))
 
