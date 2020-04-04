@@ -164,10 +164,6 @@ a:hover {
   border-top-right-radius: 10px;
 }
 
-.manOfSteel {
-  background: url("http://henrycavill.org/images/Films/2013-Man-of-Steel/posters/3-Walmart-Superman-a.jpg");
-  background-size: cover;
-}
 
 
 .header-icon-container {
@@ -278,6 +274,9 @@ a:hover {
   <div class="topnav-right">
   <a href="#top10">Top 10</a>
   <a href="#movies">Movies</a>
+      <a href="#userrated">Your Ratings</a>
+
+
       <a href="index" >Logout</a>
     <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
   </div>
@@ -295,41 +294,15 @@ a:hover {
 
 
   <div class="w3-container w3-padding-32" id="top10" >
-    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16" align="center"  style="font-family: monospace,monospace;">Top 10 IMDB Rated Movies</h3>
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16" align="left"  style="font-family: monospace,monospace;">Top 10 Recommended Movies for you! </h3>
+      <h5 class="w3-border-bottom w3-border-light-grey w3-padding-16" align="left"  style="font-family: monospace,monospace;" > <a href="#userrated">Because you rated!...</a> </h5>
   </div>
 
-	<br><table>
-    <tr>
-        <th>movieId</th>
-        <th>movieTitle</th>
-        <th>imdbId</th>
-        <th>movieDirector</th>
-        <th>movieProtagonist</th>
-        <th>movieGenre</th>
-        <th>movieRank</th>
-        <th>user_rating</th>
-        <th>avg_rating</th>
-        <th>total_people_rated</th>
-        <th>Rated?</th>
-        <th>Recommendation_rank</th>
-    </tr>
-
-{% for values in movieContent %}
-    <tr>
-        {% for key in values %}
-        <td>
-    {{key}}
-             </td>
-        {% endfor %}
-        </tr>
-{% endfor %}
-</table>
 <div class="scrollmenu">
   {% for item in data1 %}
   <div class="movie-card"   id="myDIV" >
-    <div class="movie-header manOfSteel" >
-     {{item.movieTitle}}
-    </div><!--movie-header-->
+    <div class="movie-header" style="background-image: url({{item.image_url}})">
+    </div>
     <div class="movie-content" >
       <div class="movie-content-header"  >
         <a href="#">
@@ -349,8 +322,8 @@ a:hover {
         </div><!--date,time-->
 
         <div class="info-section">
-          <label>IMDB Rating</label>
-          <span>{{item.IMDBrating}}</span>
+            <label>IMDB Rating</label>
+          <span>{{item.IMDBRating}}</span>
         </div><!--seat-->
       </div>
     </div><!--movie-content-->
@@ -360,6 +333,7 @@ a:hover {
   </div>
 </div>
 
+
 <!-- Movies  -->
   <div class="w3-container w3-padding-32" id="movies" >
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16" align="center"  style="font-family: monospace,monospace;">Movies</h3>
@@ -368,8 +342,8 @@ a:hover {
 
   {% for item in data %}
   <div class="movie-card"  align="center"  id="myDIV">
-    <div class="movie-header manOfSteel" >
-     {{item.movieTitle}}
+    <div class="movie-header" style="background-image: url({{item.Image}})">
+
     </div><!--movie-header-->
     <div class="movie-content" >
       <div class="movie-content-header"  >
@@ -404,6 +378,50 @@ a:hover {
 <!-- Footer -->
 <footer class="w3-center w3-black w3-padding-16">
 </footer>
+
+
+  <!-- User rated movies -->
+
+  <div class="w3-container w3-padding-32" id="userrated" >
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16" align="center"  style="font-family: monospace,monospace;">Top 10 Recommended Movies for you! </h3>
+  </div>
+
+<div class="scrollmenu">
+  {% for item in data2 %}
+  <div class="movie-card"   id="myDIV" >
+    <div class="movie-header" style="background-image: url({{item.Image}})">
+    </div>
+    <div class="movie-content" >
+      <div class="movie-content-header"  >
+        <a href="#">
+          <p class="movie-title" style="color:black;"><b>
+{{item.movieTitle}}</b></p>
+        </a>
+<!--        <div class="imax-logo"></div>-->
+      </div>
+      <div class="movie-info">
+        <div class="info-section">
+          <label>Genre</label>
+          <span>{{item.movieGenre}}</span>
+          <label>Director</label>
+          <span>{{item.movieDirector}}</span>
+           <label>Protagonist</label>
+          <span>{{item.movieProtagonist}}</span>
+        </div><!--date,time-->
+
+        <div class="info-section">
+          <label>User Rating Rating</label>
+          <span>{{item.user_rating}}</span>
+            <label>IMDB Rating</label>
+          <span>{{item.avg_rating}}</span>
+        </div><!--seat-->
+      </div>
+    </div><!--movie-content-->
+  </div><!--movie-card-->
+
+  {% endfor %}
+  </div>
+</div>
 <script>
 function myFunction() {
   var x = document.getElementById("myTopnav");

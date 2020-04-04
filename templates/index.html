@@ -299,8 +299,7 @@ a:hover {
 <div class="scrollmenu">
   {% for item in data1 %}
   <div class="movie-card"   id="myDIV" >
-    <div class="movie-header manOfSteel" >
-     {{item.movieTitle}}
+    <div class="movie-header" style="background-image: url({{item.Image}})">
     </div><!--movie-header-->
     <div class="movie-content" >
       <div class="movie-content-header"  >
@@ -340,8 +339,7 @@ a:hover {
 
   {% for item in data %}
   <div class="movie-card"  align="center"  id="myDIV">
-    <div class="movie-header manOfSteel" >
-     {{item.movieTitle}}
+    <div class="movie-header" style="background-image: url({{item.Image}})">
     </div><!--movie-header-->
     <div class="movie-content" >
       <div class="movie-content-header"  >
