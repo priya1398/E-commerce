@@ -1,320 +1,403 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>Login</title>
-<!--		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">-->
-<!--		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">-->
+<head>
+<title>Movies</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
 
 <style>
 
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+<style>
+body {margin:0;}
+
+
+.topnav {
+font-family: monospace,monospace;
+  overflow: hidden;
+ background: #FF416C;
+ background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
+ background: linear-gradient(to right, #FF4B2B, #FF416C);
+ background-repeat: no-repeat;">
+  position: fixed;
+width: 100%;
+}
+.topnav-right {
+  float: right;
+}
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+
+
+.topnav .icon {
+  display: none;
+}
+
+
+
+@media screen and (max-width: 600px) {
+  .topnav a:not(:first-child), .dropdown .dropbtn {
+    display: none;
+  }
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .topnav.responsive {position: relative;}
+  .topnav.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  .topnav.responsive .dropdown {float: none;}
+  .topnav.responsive .dropdown-content {position: relative;}
+  .topnav.responsive .dropdown .dropbtn {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
+
+div.scrollmenu {
+    background: #f6f5f7;
+
+  overflow: auto;
+  white-space: nowrap;
+}
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'><link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+<style >
+body {
+  height: 100%;
+  width: 100%;
+  background: white;
+<!--    background: #FF416C;-->
+<!--  background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);-->
+<!--  background: linear-gradient(to right, #FF4B2B, #FF416C);-->
+<!--  background-repeat: no-repeat;-->
+  font-family:monospace,monospace;
+  font-weight: 400;
+  font-size: 14px;
+  color: #010b26;
+}
 
 * {
-  box-sizing: border-box;
+  -webkit-transition: 300ms;
+  transition: 300ms;
 }
 
-body {
-  background: #f6f5f7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  font-family: 'Montserrat', sans-serif;
-  height: 100vh;
-  margin: -20px 0 50px;
-}
-
-h1 {
-  font-weight: bold;
-  margin: 0;
-}
-
-h2 {
+.intro {
   text-align: center;
 }
 
-p {
-  font-size: 14px;
-  font-weight: 100;
-  line-height: 20px;
-  letter-spacing: 0.5px;
-  margin: 20px 0 30px;
+ul {
+  list-style-type: none;
 }
 
-span {
-  font-size: 12px;
+h1, h2, h3, h4, h5, p {
+  font-weight: 400;
 }
 
 a {
-  color: #333;
-  font-size: 14px;
   text-decoration: none;
-  margin: 15px 0;
+  color: inherit;
 }
 
-button {
-  border-radius: 20px;
-  border: 1px solid #FF4B2B;
-  background-color: #FF4B2B;
-  color: #FFFFFF;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 12px 45px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: transform 80ms ease-in;
-}
-
-button:active {
-  transform: scale(0.95);
-}
-
-button:focus {
-  outline: none;
-}
-
-button.ghost {
-  background-color: transparent;
-  border-color: #FFFFFF;
-}
-
-form {
-  background-color: #FFFFFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 0 50px;
-  height: 100%;
-  text-align: center;
-}
-
-input {
-  background-color: #eee;
-  border: none;
-  padding: 12px 15px;
-  margin: 8px 0;
-  width: 100%;
+a:hover {
+  color: #6ABCEA;
 }
 
 .container {
-  background-color: #fff;
-  border-radius: 10px;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25),
-      0 10px 10px rgba(0,0,0,0.22);
-  position: relative;
-  overflow: hidden;
-  width: 768px;
-  max-width: 100%;
-  min-height: 480px;
-}
-
-.form-container {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  transition: all 0.6s ease-in-out;
-}
-
-.sign-in-container {
-  left: 0;
-  width: 50%;
-  z-index: 2;
-}
-
-.container.right-panel-active .sign-in-container {
-  transform: translateX(100%);
-}
-
-.sign-up-container {
-  left: 0;
-  width: 50%;
-  opacity: 0;
-  z-index: 1;
-}
-
-.container.right-panel-active .sign-up-container {
-  transform: translateX(100%);
-  opacity: 1;
-  z-index: 5;
-  animation: show 0.6s;
-}
-
-@keyframes show {
-  0%, 49.99% {
-    opacity: 0;
-    z-index: 1;
-  }
-
-  50%, 100% {
-    opacity: 1;
-    z-index: 5;
-  }
-}
-
-.overlay-container {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 50%;
-  height: 100%;
-  overflow: hidden;
-  transition: transform 0.6s ease-in-out;
-  z-index: 100;
-}
-
-.container.right-panel-active .overlay-container{
-  transform: translateX(-100%);
-}
-
-.overlay {
-  background: #FF416C;
-  background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-  background: linear-gradient(to right, #FF4B2B, #FF416C);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: 0 0;
-  color: #FFFFFF;
-  position: relative;
-  left: -100%;
-  height: 100%;
-  width: 200%;
-    transform: translateX(0);
-  transition: transform 0.6s ease-in-out;
-}
-
-.container.right-panel-active .overlay {
-    transform: translateX(50%);
-}
-
-.overlay-panel {
-  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 0 40px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  max-width: 100%;
+  margin-top: 10vh;
+  margin-left: auto;
+  margin-right: auto;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.movie-card {
+  background: #ffffff;
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 280px;
+  margin: 2em;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+.movie-header {
+  padding: 0;
+  margin: 0;
+  height: 200px;
+  width: 100%;
+  display: block;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.manOfSteel {
+  background: url("http://henrycavill.org/images/Films/2013-Man-of-Steel/posters/3-Walmart-Superman-a.jpg");
+  background-size: cover;
+}
+
+
+.header-icon-container {
+  position: relative;
+}
+
+.header-icon {
+  width: 100%;
+  height: 367px;
+  line-height: 367px;
   text-align: center;
-  top: 0;
-  height: 100%;
-  width: 50%;
-  transform: translateX(0);
-  transition: transform 0.6s ease-in-out;
+  vertical-align: middle;
+  margin: 0 auto;
+  color: #ffffff;
+  font-size: 54px;
+  text-shadow: 0px 0px 20px #6abcea, 0px 5px 20px #6ABCEA;
+  opacity: .85;
 }
 
-.overlay-left {
-  transform: translateX(-20%);
+
+
+
+
+.movie-content {
+  padding: 18px 18px 24px 18px;
+  margin: 0;
 }
 
-.container.right-panel-active .overlay-left {
-  transform: translateX(0);
+.movie-content-header, .movie-info {
+  display: table;
+  width: 100%;
 }
 
-.overlay-right {
-  right: 0;
-  transform: translateX(0);
+.movie-title {
+  font-size: 16px;
+  margin: 0;
+  display: table-cell;
 }
 
-.container.right-panel-active .overlay-right {
-  transform: translateX(20%);
+
+.movie-info {
+  margin-top: 1em;
 }
 
-.social-container {
-  margin: 20px 0;
+.info-section {
+  display: table-cell;
+  text-transform: uppercase;
+  text-align: center;
 }
 
-.social-container a {
-  border: 1px solid #DDDDDD;
-  border-radius: 50%;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 5px;
-  height: 40px;
-  width: 40px;
+.info-section:first-of-type {
+  text-align: left;
 }
 
-footer {
-    background-color: #222;
-    color: #fff;
-    font-size: 14px;
-    bottom: 0;
-    position: fixed;
-    left: 0;
-    right: 0;
-    text-align: center;
-    z-index: 999;
+.info-section:last-of-type {
+  text-align: right;
 }
 
-footer p {
-    margin: 10px 0;
+.info-section label {
+  display: block;
+  color: rgba(0, 0, 0, 0.5);
+  margin-bottom: .5em;
+  font-size: 9px;
 }
 
-footer i {
-    color: red;
+.info-section span {
+  font-weight: 700;
+  font-size: 11px;
 }
 
-footer a {
-    color: #3c97bf;
-    text-decoration: none;
+
+.headr{
+	background-image:url("https://www.livingwaters.com/wp-content/uploads/2017/12/outreach-Movies-logo.jpg);
+	height:70px;
+	width:110%;
+	margin:-10px;
 }
-        </style>
-	</head>
-	<body class="home">
-<div class="container" id="container">
-	<div class="form-container sign-in-container">
 
-		<div class="login">
-			<h1>Login</h1>
-			<div class="links">
-				<a href="{{ url_for('login') }}" class="active">Login</a>
-				<a href="{{ url_for('register') }}">Register</a>
-			</div>
-			<form action="{{ url_for('login') }}" method="post">
-				<label for="username">
-					<i class="fas fa-user"></i>
-				</label>
-				<input type="text" name="username" placeholder="Username" id="username" required>
-				<label for="password">
-					<i class="fas fa-lock"></i>
-				</label>
-				<input type="password" name="password" placeholder="Password" id="password" required>
-				<div class="msg">{{ msg }}</div>
-				<input type="submit" value="Login">
-			</form>
-		</div>
-	  </div>
+@media screen and (max-width: 500px) {
+  .movie-card {
+    width: 95%;
+    max-width: 95%;
+    margin: 1em;
+    display: block;
+  }
 
-	<div class="overlay-container">
-    <div class="overlay">
-      <div class="overlay-panel overlay-left">
-        <h1>Welcome Back!</h1>
-        <p>To keep connected with us please login with your personal info</p>
-        <button class="ghost" id="signIn">Sign In</button>
+  .container {
+    padding: 0;
+    margin: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+{% block content %}
+<!-- Navbar (sit on top) -->
+
+<div class="topnav" id="myTopnav" style="position:fixed; font-size:16px;">
+
+
+      <a href="#index" class="active">Home</a>
+
+<!--  <input id="myInput" type="text" placeholder="Search..">-->
+
+
+
+  <div class="topnav-right">
+  <a href="#top10">Top 10</a>
+  <a href="#movies">Movies</a>
+      <a href="login" >Login</a>
+      <a href="register">Register</a>
+    <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+  </div>
+
+
+</div>
+
+
+<!-- Page content -->
+<div class="w3-content w3-padding" style="max-width:1564px">
+
+
+  <!-- TOP 10 IMBD Rated Movies -->
+  <div class="w3-container w3-padding-32" id="top10" >
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16" align="center"  style="font-family: monospace,monospace;">Top 10 IMDB Rated Movies</h3>
+  </div>
+
+	<br>
+<div class="scrollmenu">
+  {% for item in data1 %}
+  <div class="movie-card"   id="myDIV" >
+    <div class="movie-header" style="background-image: url({{item.Image}})">
+    </div><!--movie-header-->
+    <div class="movie-content" >
+      <div class="movie-content-header"  >
+        <a href="#">
+          <p class="movie-title" style="color:black;"><b>
+{{item.movieTitle}}</b></p>
+        </a>
+<!--        <div class="imax-logo"></div>-->
       </div>
-      <div class="overlay-panel overlay-right">
-        <h1>Hello, Friend!</h1>
-        <p>Enter your personal details and start journey with us</p>
-        <button class="ghost" id="signUp">Sign Up</button>
+      <div class="movie-info">
+        <div class="info-section">
+          <label>Genre</label>
+          <span>{{item.movieGenre}}</span>
+          <label>Director</label>
+          <span>{{item.movieDirector}}</span>
+           <label>Protagonist</label>
+          <span>{{item.movieProtagonist}}</span>
+        </div><!--date,time-->
+
+        <div class="info-section">
+          <label>IMDB Rating</label>
+          <span>{{item.IMDBrating}}</span>
+        </div><!--seat-->
       </div>
-    </div>
+    </div><!--movie-content-->
+  </div><!--movie-card-->
+
+  {% endfor %}
   </div>
 </div>
 
-	<script>
-  const signUpButton = document.getElementById('signUp');
-const signInButton = document.getElementById('signIn');
-const container = document.getElementById('container');
+<!-- Movies  -->
+  <div class="w3-container w3-padding-32" id="movies" >
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16" align="center"  style="font-family: monospace,monospace;">Movies</h3>
+  </div>
 
-signUpButton.addEventListener('click', function () {
-  window.open("{{ url_for('register') }}");
-});
 
-signInButton.addEventListener('click', function () {
-  window.open("{{ url_for('login') }}");
-});
+  {% for item in data %}
+  <div class="movie-card"  align="center"  id="myDIV">
+    <div class="movie-header" style="background-image: url({{item.Image}})">
+    </div><!--movie-header-->
+    <div class="movie-content" >
+      <div class="movie-content-header"  >
+        <a href="#">
+          <p class="movie-title" style="color:black;" ><b>
+{{item.movieTitle}}</b></p>
+        </a>
+<!--        <div class="imax-logo"></div>-->
+      </div>
+      <div class="movie-info">
+        <div class="info-section">
+          <label>Genre</label>
+          <span>{{item.movieGenre}}</span>
+          <label>Director</label>
+          <span>{{item.movieDirector}}</span>
+           <label>Protagonist</label>
+          <span>{{item.movieProtagonist}}</span>
+        </div><!--date,time-->
 
+        <div class="info-section">
+          <label>IMDB Rating</label>
+          <span>{{item.IMDBrating}}</span>
+        </div><!--seat-->
+      </div>
+    </div><!--movie-content-->
+  </div><!--movie-card-->
+
+  {% endfor %}
+
+</div>
+
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-16">
+</footer>
+<script>
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
 </script>
-	</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!--<script>-->
+<!--$(document).ready(function(){-->
+<!--  $("#myInput").on("keyup", function() {-->
+<!--    var value = $(this).val().toLowerCase();-->
+<!--    $("#myDIV *").filter(function() {-->
+<!--      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)-->
+<!--    });-->
+<!--  });-->
+<!--});-->
+<!--</script>-->
+
+
+</body>
+{% endblock %}
 </html>
