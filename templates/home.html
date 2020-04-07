@@ -263,42 +263,30 @@ a:hover {
 <!-- Navbar (sit on top) -->
 
 <div class="topnav" id="myTopnav" style="position:fixed; font-size:16px;">
-
-
       <a href="#index" class="active">Home</a>
-
-<!--  <input id="myInput" type="text" placeholder="Search..">-->
-
-
-
-  <div class="topnav-right">
-  <a href="#top10">Top 10</a>
-  <a href="#movies">Movies</a>
+       <a href="#top10">Recommended Movies</a>
+       <a href="#movies">All Movies</a>
       <a href="#userrated">Your Ratings</a>
-
-
+<!--  <input id="myInput" type="text" placeholder="Search..">-->
+  <div class="topnav-right">
+       <a href="predict">Quick Survey</a>
       <a href="index" >Logout</a>
     <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
   </div>
-
 
 </div>
 
 
 <!-- Page content -->
 <div class="w3-content w3-padding" style="max-width:1564px">
-
-
   <!-- TOP 10 IMBD Rated Movies -->
-
-
-
   <div class="w3-container w3-padding-32" id="top10" >
-    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16" align="left"  style="font-family: monospace,monospace;">Top 10 Recommended Movies for you! </h3>
-      <h5 class="w3-border-bottom w3-border-light-grey w3-padding-16" align="left"  style="font-family: monospace,monospace;" > <a href="#userrated">Because you rated!...</a> </h5>
+
+      <h4 class="w3-border-light-grey w3-padding-16" align="center"  style="font-family: monospace,monospace;" > Welcome to MovieReel.com</h4>
   </div>
 
 <div class="scrollmenu">
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16" align="left"  style="font-family: monospace,monospace;">Top 10 Picks for you! </h3>
   {% for item in data1 %}
   <div class="movie-card"   id="myDIV" >
     <div class="movie-header" style="background-image: url({{item.image_url}})">
@@ -383,7 +371,7 @@ a:hover {
   <!-- User rated movies -->
 
   <div class="w3-container w3-padding-32" id="userrated" >
-    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16" align="center"  style="font-family: monospace,monospace;">Top 10 Recommended Movies for you! </h3>
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16" align="center"  style="font-family: monospace,monospace;">Previously Rated Movies</h3>
   </div>
 
 <div class="scrollmenu">

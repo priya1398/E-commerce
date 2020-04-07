@@ -619,7 +619,8 @@ CREATE TABLE `movies` (
   `movieProtagonist` varchar(80) CHARACTER SET utf8 NOT NULL,
   `movieGenre` varchar(40) NOT NULL,
   `IMDBrating` decimal(5,2) UNSIGNED NOT NULL DEFAULT '0.00',
-  `Image` varchar(65535) CHARACTER SET utf8 NOT NULL
+  `Price` decimal(5,2) UNISIGNED NOT NULL DEFAULT '0.00',
+  `Image` text(65535) CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='forECommerceDataAnalytics';
 
 --
@@ -676,6 +677,7 @@ INSERT INTO `movies` (`movieID`, `movieRank`, `movieTitle`, `imdbID`, `movieDire
 ,(49, 48, 'Up ', 'tt1049413', 'Pete Docter', 'Edward Asner', 'Adventure', '8.20', 'https://m.media-amazon.com/images/M/MV5BMTk3NDE2NzI4NF5BMl5BanBnXkFtZTgwNzE1MzEyMTE@._V1_UX182_CR0,0,182,268_AL_.jpg')
 ,(50, 49, 'Matilda ', 'tt0117008', 'Danny DeVito', 'Mara Wilson', 'Comedy', '8.20', 'https://m.media-amazon.com/images/M/MV5BZTA4MmI5YzgtOTU1Yy00NGVjLTgyMGQtNjNlMDY2YWVlZmYyL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_UX182_CR0,0,182,268_AL_.jpg')
 ,(51, 50, 'How to Train Your Dragon ', 'tt0892769', 'Dean DeBlois', 'Jay Baruchel ', 'Animation', '8.10', 'https://m.media-amazon.com/images/M/MV5BMjA5NDQyMjc2NF5BMl5BanBnXkFtZTcwMjg5ODcyMw@@._V1_UX182_CR0,0,182,268_AL_.jpg');
+
 
 --
 -- Indexes for table `movies`
