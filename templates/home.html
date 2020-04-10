@@ -263,14 +263,14 @@ a:hover {
 <!-- Navbar (sit on top) -->
 
 <div class="topnav" id="myTopnav" style="position:fixed; font-size:16px;">
-      <a href="#index" class="active">Home</a>
+      <a href="#top10" class="active">Home</a>
        <a href="#top10">Recommended Movies</a>
        <a href="#movies">All Movies</a>
       <a href="#userrated">Your Ratings</a>
 <!--  <input id="myInput" type="text" placeholder="Search..">-->
   <div class="topnav-right">
        <a href="predict">Quick Survey</a>
-      <a href="index" >Logout</a>
+      <a href="/" >Logout</a>
     <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
   </div>
 
@@ -312,6 +312,8 @@ a:hover {
         <div class="info-section">
             <label>IMDB Rating</label>
           <span>{{item.IMDBRating}}</span>
+             <label>Price</label>
+          <span>{{item.Price}}</span>
         </div><!--seat-->
       </div>
     </div><!--movie-content-->
@@ -354,6 +356,8 @@ a:hover {
         <div class="info-section">
           <label>IMDB Rating</label>
           <span>{{item.IMDBrating}}</span>
+             <label>Price</label>
+          <span>{{item.Price}}</span>
         </div><!--seat-->
       </div>
     </div><!--movie-content-->
@@ -402,6 +406,8 @@ a:hover {
           <span>{{item.user_rating}}</span>
             <label>IMDB Rating</label>
           <span>{{item.avg_rating}}</span>
+                  <label>Price</label>
+          <span>{{item.discount}}</span>
         </div><!--seat-->
       </div>
     </div><!--movie-content-->

@@ -221,10 +221,10 @@ div.scrollmenu {
     </div>
     <div class="movie-content" >
       <div class="movie-content-header"  >
-        <a href="#">
+
           <p class="movie-title" style="color:black;"><b>
             {{item.movieTitle}}</b></p>
-        </a>
+
 <!--        <div class="imax-logo"></div>-->
       </div>
       <div class="movie-info">
@@ -240,6 +240,10 @@ div.scrollmenu {
         <div class="info-section">
             <label>IMDB Rating</label>
           <span>{{item.IMDBRating}}</span>
+                  <label>Price</label>
+          <span><strike>{{item.discount}}</strike></span>
+            <label></label>
+           <span style="color:red; "> {{item.Price}}</span>
         </div><!--seat-->
       </div>
     </div><!--movie-content-->
@@ -262,6 +266,8 @@ div.scrollmenu {
 
 <script>
     window.onload = function hideDis() {
+
+
         if ("{{ result }}" == "No") {
             var x = document.getElementsByClassName("dis");
             for (var i = 0; i < x.length; i++) {

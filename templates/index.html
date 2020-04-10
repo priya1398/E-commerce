@@ -265,7 +265,7 @@ a:hover {
 {% block content %}
 <!-- Navbar (sit on top) -->
 <div class="topnav" id="myTopnav" style="position:fixed; font-size:16px;">
-       <a href="#index" class="active">Home</a>
+       <a href="#top10" class="active">Home</a>
       <a href="#top10">Top 10</a>
       <a href="#movies">Movies</a>
 
@@ -298,10 +298,10 @@ a:hover {
     </div><!--movie-header-->
     <div class="movie-content" >
       <div class="movie-content-header"  >
-        <a href="#">
+
           <p class="movie-title" style="color:black;"><b>
 {{item.movieTitle}}</b></p>
-        </a>
+
 <!--        <div class="imax-logo"></div>-->
       </div>
       <div class="movie-info">
@@ -317,6 +317,8 @@ a:hover {
         <div class="info-section">
           <label>IMDB Rating</label>
           <span>{{item.IMDBrating}}</span>
+             <label>Price</label>
+          <span>{{item.Price}}</span>
         </div><!--seat-->
       </div>
     </div><!--movie-content-->
@@ -338,10 +340,10 @@ a:hover {
     </div><!--movie-header-->
     <div class="movie-content" >
       <div class="movie-content-header"  >
-        <a href="#">
+
           <p class="movie-title" style="color:black;" ><b>
 {{item.movieTitle}}</b></p>
-        </a>
+
 <!--        <div class="imax-logo"></div>-->
       </div>
       <div class="movie-info">
@@ -357,6 +359,8 @@ a:hover {
         <div class="info-section">
           <label>IMDB Rating</label>
           <span>{{item.IMDBrating}}</span>
+            <label>Price</label>
+          <span>{{item.Price}}</span>
         </div><!--seat-->
       </div>
     </div><!--movie-content-->
