@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS `pythonlogin` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+﻿CREATE DATABASE IF NOT EXISTS `pythonlogin` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `pythonlogin`;
 
 CREATE TABLE IF NOT EXISTS `accounts` (
@@ -619,7 +619,6 @@ CREATE TABLE `movies` (
   `movieProtagonist` varchar(80) CHARACTER SET utf8 NOT NULL,
   `movieGenre` varchar(40) NOT NULL,
   `IMDBrating` decimal(5,2) UNSIGNED NOT NULL DEFAULT '0.00',
-  `Price` decimal(5,2) UNISIGNED NOT NULL DEFAULT '0.00',
   `Image` text(65535) CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='forECommerceDataAnalytics';
 
@@ -692,8 +691,109 @@ ALTER TABLE `movies`
   MODIFY `movieID` mediumint(4) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 COMMIT;
 
+alter table movies add Price decimal(5,2);
 
+Create table Price(id integer(10) primary key auto_increment, Price decimal(5,2), MovieID mediumint(4));
 
-
+UPDATE movies SET Price = '48.64' WHERE movieID = 2;
+COMMIT;
+UPDATE movies SET Price = '60.31' WHERE movieID = 3;
+COMMIT;
+UPDATE movies SET Price = '88.39' WHERE movieID = 4;
+COMMIT;
+UPDATE movies SET Price = '99.82' WHERE movieID = 5;
+COMMIT;
+UPDATE movies SET Price = '96.24' WHERE movieID = 6;
+COMMIT;
+UPDATE movies SET Price = '54.61' WHERE movieID = 7;
+COMMIT;
+UPDATE movies SET Price = '93.94' WHERE movieID = 8;
+COMMIT;
+UPDATE movies SET Price = '56.64' WHERE movieID = 9;
+COMMIT;
+UPDATE movies SET Price = '78.00' WHERE movieID = 10;
+COMMIT;
+UPDATE movies SET Price = '52.23' WHERE movieID = 11;
+COMMIT;
+UPDATE movies SET Price = '44.55' WHERE movieID = 12;
+COMMIT;
+UPDATE movies SET Price = '77.00' WHERE movieID = 13;
+COMMIT;
+UPDATE movies SET Price = '93.50' WHERE movieID = 14;
+COMMIT;
+UPDATE movies SET Price = '53.94' WHERE movieID = 15;
+COMMIT;
+UPDATE movies SET Price = '91.20' WHERE movieID = 16;
+COMMIT;
+UPDATE movies SET Price = '37.00' WHERE movieID = 17;
+COMMIT;
+UPDATE movies SET Price = '78.50' WHERE movieID = 18;
+COMMIT;
+UPDATE movies SET Price = '66.60' WHERE movieID = 19;
+COMMIT;
+UPDATE movies SET Price = '88.00' WHERE movieID = 20;
+COMMIT;
+UPDATE movies SET Price = '80.60' WHERE movieID = 21;
+COMMIT;
+UPDATE movies SET Price = '46.54' WHERE movieID = 22;
+COMMIT;
+UPDATE movies SET Price = '43.56' WHERE movieID = 23;
+COMMIT;
+UPDATE movies SET Price = '70.94' WHERE movieID = 24;
+COMMIT;
+UPDATE movies SET Price = '62.50' WHERE movieID = 25;
+COMMIT;
+UPDATE movies SET Price = '62.75' WHERE movieID = 26;
+COMMIT;
+UPDATE movies SET Price = '44.75' WHERE movieID = 27;
+COMMIT;
+UPDATE movies SET Price = '49.25' WHERE movieID = 28;
+COMMIT;
+UPDATE movies SET Price = '34.80' WHERE movieID = 29;
+COMMIT;
+UPDATE movies SET Price = '55.00' WHERE movieID = 30;
+COMMIT;
+UPDATE movies SET Price = '74.00' WHERE movieID = 31;
+COMMIT;
+UPDATE movies SET Price = '43.00' WHERE movieID = 32;
+COMMIT;
+UPDATE movies SET Price = '67.90' WHERE movieID = 33;
+COMMIT;
+UPDATE movies SET Price = '61.00' WHERE movieID = 34;
+COMMIT;
+UPDATE movies SET Price = '45.56' WHERE movieID = 35;
+COMMIT;
+UPDATE movies SET Price = '41.64' WHERE movieID = 36;
+COMMIT;
+UPDATE movies SET Price = '96.00' WHERE movieID = 37;
+COMMIT;
+UPDATE movies SET Price = '53.28' WHERE movieID = 38;
+COMMIT;
+UPDATE movies SET Price = '67.27' WHERE movieID = 39;
+COMMIT;
+UPDATE movies SET Price = '66.88' WHERE movieID = 40;
+COMMIT;
+UPDATE movies SET Price = '87.90' WHERE movieID = 41;
+COMMIT;
+UPDATE movies SET Price = '63.90' WHERE movieID = 42;
+COMMIT;
+UPDATE movies SET Price = '35.00' WHERE movieID = 43;
+COMMIT;
+UPDATE movies SET Price = '88.64' WHERE movieID = 44;
+COMMIT;
+UPDATE movies SET Price = '71.34' WHERE movieID = 45;
+COMMIT;
+UPDATE movies SET Price = '92.57' WHERE movieID = 46;
+COMMIT;
+UPDATE movies SET Price = '74.82' WHERE movieID = 47;
+COMMIT;
+UPDATE movies SET Price = '50.43' WHERE movieID = 48;
+COMMIT;
+UPDATE movies SET Price = '62.48' WHERE movieID = 49;
+COMMIT;
+UPDATE movies SET Price = '98.40' WHERE movieID = 50;
+COMMIT;
+UPDATE movies SET Price = '60.48' WHERE movieID = 51;
+COMMIT;
 
 

@@ -43,17 +43,17 @@ app.secret_key = '1a2b3c4d5e'
 # Enter your database connection details below
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'bleh'
+app.config['MYSQL_PASSWORD'] = 'puppy13'
 app.config['MYSQL_DB'] = 'pythonlogin'
 
 mysql = pymysql.connect(host='localhost',
                          user='root',
-                         password='bleh',
+                         password='puppy13',
                          db='pythonlogin',
                          charset='utf8mb4',
                          cursorclass=pymysql.cursors.DictCursor)
 
-# http://localhost:5000/pythonlogin/ - this will be the login page, we need to use both GET and POST requests
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     # Output message if something goes wrong...
@@ -83,7 +83,7 @@ def login():
     return render_template('login.html', msg='')
 
 
-# http://localhost:5000/pythonlogin/register - this will be the registration page,
+
 # we need to use both GET and POST requests
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -120,7 +120,7 @@ def register():
     # Show registration form with message (if any)
     return render_template('register.html', msg=msg)
 
-# http://localhost:5000/pythinlogin/home - this will be the home page, only accessible for loggedin users
+
 @app.route('/home')
 def home():
     # Check if user is loggedin
@@ -129,9 +129,27 @@ def home():
         cursor = mysql.cursor(pymysql.cursors.DictCursor)
 
 
+
         # Get all the movies for the user based on rated and non rated
-        cursor.execute('select a.movieId,a.movieTitle,a.imdbId,a.movieDirector,a.movieProtagonist,a.movieGenre,a.movieRank,a.avg_rating AS user_rating,b.avg_rating,b.total_ratings,a.Image,a.flag FROM ((SELECT DISTINCT movieId,movieTitle,imdbId,movieDirector,movieProtagonist,movieGenre,movieRank,image,AVG(IMDBRating) AS avg_rating, COUNT(DISTINCT b.fkCustomerid) AS total_ratings,"Not-Rated" AS flag FROM movies a LEFT JOIN movieRatings b ON a.movieId = b.fkmovieId WHERE movieId NOT IN (SELECT DISTINCT movieId FROM movies a LEFT JOIN movieRatings b ON a.movieId = b.fkmovieId WHERE b.fkCustomerid = %s) GROUP BY 1,2,3,4,5,6,7,8 ORDER BY 1,2,3,4,5,6,7,8) UNION (SELECT DISTINCT movieId,movieTitle,imdbId,movieDirector,movieProtagonist,movieGenre,movieRank,image,AVG(rating) AS avg_rating, COUNT(DISTINCT b.fkCustomerid) AS total_ratings,"Rated" AS flag FROM movies a LEFT JOIN movieRatings b ON a.movieId = b.fkmovieId WHERE b.fkCustomerid = %s GROUP BY 1,2,3,4,5,6,7,8 ORDER BY 1,2,3,4,5,6,7,8)) a INNER JOIN (SELECT DISTINCT fkmovieID,COUNT(DISTINCT fkCustomerId) as total_ratings,AVG(IMDBrating) AS avg_rating FROM movieRatings a INNER JOIN movies b ON a.fkmovieId = b.movieID GROUP BY 1) b ON a.movieId = b.fkmovieId',
-                       (session['id'],session['id']))
+        cursor.execute('select a.movieId,a.movieTitle,a.imdbId,a.movieDirector,'
+                       'a.movieProtagonist,a.movieGenre,a.movieRank,a.avg_rating '
+                       'AS user_rating,b.avg_rating,'
+                       'b.total_ratings,a.Image,a.flag,'
+                       'a.price,a.price*2 AS discount FROM ((SELECT DISTINCT movieId,'
+                       'movieTitle,imdbId,movieDirector,movieProtagonist,'
+                       'movieGenre,movieRank,image,price*0.5 AS price,AVG(IMDBRating) AS avg_rating, '
+                       'COUNT(DISTINCT b.fkCustomerid) AS total_ratings,'
+                       '"Not-Rated" AS flag FROM movies a LEFT JOIN movieRatings b ON a.movieId = b.fkmovieId'
+                       ' WHERE movieId NOT IN (SELECT DISTINCT movieId FROM movies a LEFT JOIN movieRatings b '
+                       'ON a.movieId = b.fkmovieId WHERE b.fkCustomerid = %s) GROUP BY 1,2,3,4,5,6,7,8,9 '
+                       'ORDER BY 1,2,3,4,5,6,7,8,9)'
+                       ' UNION (SELECT DISTINCT movieId,movieTitle,imdbId,movieDirector,movieProtagonist,movieGenre,movieRank,image,price*0.5 AS price,AVG(rating) AS avg_rating, '
+                       'COUNT(DISTINCT b.fkCustomerid) AS total_ratings,"Rated" AS flag FROM movies a LEFT JOIN '
+                       'movieRatings b ON a.movieId = b.fkmovieId WHERE b.fkCustomerid = %s '
+                       'GROUP BY 1,2,3,4,5,6,7,8,9 ORDER BY 1,2,3,4,5,6,7,8,9)) a '
+                       'INNER JOIN (SELECT DISTINCT fkmovieID,COUNT(DISTINCT fkCustomerId) as total_ratings,AVG(IMDBrating) AS avg_rating FROM movieRatings a '
+                       'INNER JOIN movies b ON a.fkmovieId = b.movieID GROUP BY 1) b ON a.movieId = b.fkmovieId',
+                       (session['id'], session['id']))
         cur = mysql.cursor(pymysql.cursors.DictCursor)
         cur.execute("select * from movies ")
         data = cur.fetchall()
@@ -201,7 +219,9 @@ def home():
                 'IMDBRating': results[x][7],
                 'total_people_rated': results[x][9],
                 'image_url': results[x][10],
-                'Flag': results[x][11]})
+                'Flag': results[x][11],
+                'Price': results[x][13],
+            })
             rank+=1
 
         df_rated = df_rated.sort_values(by='user_rating', axis=0, ascending=False, inplace=False, kind='quicksort',na_position='last')
@@ -214,7 +234,7 @@ def home():
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))
 
-@app.route('/index')
+@app.route('/')
 def index():
 
     cur = mysql.cursor(pymysql.cursors.DictCursor)
@@ -231,9 +251,25 @@ def run():
     cursor = mysql.cursor(pymysql.cursors.DictCursor)
 
     # Get all the movies for the user based on rated and non rated
-    cursor.execute(
-        'select a.movieId,a.movieTitle,a.imdbId,a.movieDirector,a.movieProtagonist,a.movieGenre,a.movieRank,a.avg_rating AS user_rating,b.avg_rating,b.total_ratings,a.Image,a.flag FROM ((SELECT DISTINCT movieId,movieTitle,imdbId,movieDirector,movieProtagonist,movieGenre,movieRank,image,AVG(IMDBRating) AS avg_rating, COUNT(DISTINCT b.fkCustomerid) AS total_ratings,"Not-Rated" AS flag FROM movies a LEFT JOIN movieRatings b ON a.movieId = b.fkmovieId WHERE movieId NOT IN (SELECT DISTINCT movieId FROM movies a LEFT JOIN movieRatings b ON a.movieId = b.fkmovieId WHERE b.fkCustomerid = %s) GROUP BY 1,2,3,4,5,6,7,8 ORDER BY 1,2,3,4,5,6,7,8) UNION (SELECT DISTINCT movieId,movieTitle,imdbId,movieDirector,movieProtagonist,movieGenre,movieRank,image,AVG(rating) AS avg_rating, COUNT(DISTINCT b.fkCustomerid) AS total_ratings,"Rated" AS flag FROM movies a LEFT JOIN movieRatings b ON a.movieId = b.fkmovieId WHERE b.fkCustomerid = %s GROUP BY 1,2,3,4,5,6,7,8 ORDER BY 1,2,3,4,5,6,7,8)) a INNER JOIN (SELECT DISTINCT fkmovieID,COUNT(DISTINCT fkCustomerId) as total_ratings,AVG(IMDBrating) AS avg_rating FROM movieRatings a INNER JOIN movies b ON a.fkmovieId = b.movieID GROUP BY 1) b ON a.movieId = b.fkmovieId',
-        (session['id'], session['id']))
+    cursor.execute('select a.movieId,a.movieTitle,a.imdbId,a.movieDirector,'
+                   'a.movieProtagonist,a.movieGenre,a.movieRank,a.avg_rating '
+                   'AS user_rating,b.avg_rating,'
+                   'b.total_ratings,a.Image,a.flag,'
+                   'a.price,a.price*2 AS discount FROM ((SELECT DISTINCT movieId,'
+                   'movieTitle,imdbId,movieDirector,movieProtagonist,'
+                   'movieGenre,movieRank,image,price*0.5 AS price,AVG(IMDBRating) AS avg_rating, '
+                   'COUNT(DISTINCT b.fkCustomerid) AS total_ratings,'
+                   '"Not-Rated" AS flag FROM movies a LEFT JOIN movieRatings b ON a.movieId = b.fkmovieId'
+                   ' WHERE movieId NOT IN (SELECT DISTINCT movieId FROM movies a LEFT JOIN movieRatings b '
+                   'ON a.movieId = b.fkmovieId WHERE b.fkCustomerid = %s) GROUP BY 1,2,3,4,5,6,7,8,9 '
+                   'ORDER BY 1,2,3,4,5,6,7,8,9)'
+                   ' UNION (SELECT DISTINCT movieId,movieTitle,imdbId,movieDirector,movieProtagonist,movieGenre,movieRank,image,price*0.5 AS price,AVG(rating) AS avg_rating, '
+                   'COUNT(DISTINCT b.fkCustomerid) AS total_ratings,"Rated" AS flag FROM movies a LEFT JOIN '
+                   'movieRatings b ON a.movieId = b.fkmovieId WHERE b.fkCustomerid = %s '
+                   'GROUP BY 1,2,3,4,5,6,7,8,9 ORDER BY 1,2,3,4,5,6,7,8,9)) a '
+                   'INNER JOIN (SELECT DISTINCT fkmovieID,COUNT(DISTINCT fkCustomerId) as total_ratings,AVG(IMDBrating) AS avg_rating FROM movieRatings a '
+                   'INNER JOIN movies b ON a.fkmovieId = b.movieID GROUP BY 1) b ON a.movieId = b.fkmovieId',
+                   (session['id'], session['id']))
     cur = mysql.cursor(pymysql.cursors.DictCursor)
     cur.execute("select * from movies ")
     data = cur.fetchall()
@@ -287,14 +323,14 @@ def run():
             counter += 1
         if counter == 10:
             break
-
+    print(results)
     top_10 = []
     rank = 1
     for x in list_ranked:
         results[x].append(rank)
         top_10.append({
             'movieId': results[x][0],
-            'movieRank': results[x][12],
+            'movieRank': results[x][14],
             'movieTitle': results[x][1],
             'imdbID': results[x][2],
             'movieDirector': results[x][3],
@@ -304,7 +340,10 @@ def run():
             'IMDBRating': results[x][7],
             'total_people_rated': results[x][9],
             'image_url': results[x][10],
-            'Flag': results[x][11]})
+            'Flag': results[x][11],
+            'Price': results[x][12],
+            'discount': results[x][13]
+         })
         rank += 1
 
     if request.method == 'POST':
@@ -314,9 +353,15 @@ def run():
                            message['loyalty'], message['security'], message['customerservice'])
         prediction = predict(data)
         print(prediction)
-        return render_template('result.html', result=prediction, data=top_10)
+        if prediction =='Yes':
+            return render_template('result.html', result=prediction, data=top_10)
+        else:
+            return render_template('function.html', result=prediction, data=top_10)
+
+
 
     return render_template('predict.html')
+
 
 if __name__ =='__main__':
 	app.run()
