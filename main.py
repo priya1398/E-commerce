@@ -15,6 +15,7 @@ import re, math
 from collections import Counter
 
 
+
 def short(i):
     y=i.replace(' ','')
     z=y.lower()
@@ -111,8 +112,8 @@ def register():
             msg = 'Please fill out the form!'
         else:
             # Account doesnt exists and the form data is valid, now insert new account into accounts table
-            cursor.execute('INSERT INTO accounts VALUES (NULL, %s, %s, %s)', (username, password, email))
-            mysql.connection.commit()
+            cursor.execute('INSERT INTO accounts(username,password,email) VALUES (%s, %s, %s)', (username, password, email))
+            mysql.commit()
             msg = 'You have successfully registered!'
     elif request.method == 'POST':
         # Form is empty... (no POST data)
@@ -128,6 +129,8 @@ def home():
         # User is loggedin show them the home page
         cursor = mysql.cursor(pymysql.cursors.DictCursor)
 
+        #test_query = mysql.cursor(pymysql.cursors.DictCursor)
+        #test_query.execute('INSERT INTO movieratings(fkCustomerId,fkMovieId,rating)  VALUES (%s,3,2),(%s,2,10)',(session['id'],session['id']))
 
 
         # Get all the movies for the user based on rated and non rated
@@ -135,9 +138,9 @@ def home():
                        'a.movieProtagonist,a.movieGenre,a.movieRank,a.avg_rating '
                        'AS user_rating,b.avg_rating,'
                        'b.total_ratings,a.Image,a.flag,'
-                       'a.price,a.price*2 AS discount FROM ((SELECT DISTINCT movieId,'
+                       'a.Price,a.Price*2 AS discount FROM ((SELECT DISTINCT movieId,'
                        'movieTitle,imdbId,movieDirector,movieProtagonist,'
-                       'movieGenre,movieRank,image,price*0.5 AS price,AVG(IMDBRating) AS avg_rating, '
+                       'movieGenre,movieRank,image,Price*0.5 AS price,AVG(IMDBRating) AS avg_rating, '
                        'COUNT(DISTINCT b.fkCustomerid) AS total_ratings,'
                        '"Not-Rated" AS flag FROM movies a LEFT JOIN movieRatings b ON a.movieId = b.fkmovieId'
                        ' WHERE movieId NOT IN (SELECT DISTINCT movieId FROM movies a LEFT JOIN movieRatings b '
@@ -153,6 +156,7 @@ def home():
         cur = mysql.cursor(pymysql.cursors.DictCursor)
         cur.execute("select * from movies ")
         data = cur.fetchall()
+        print(session['id'])
 
         #  STEP 1: Store in Data Frame
         results = []
@@ -160,7 +164,7 @@ def home():
             keys = (row.keys())
             results.append(list(row.values()))
         df = pd.DataFrame(results, columns=keys)
-
+        print(df)
         #Step 2: Use a CountVectorizer that will create a matrix (50,50) with each movie against every movie with the count of similarity in terms of words
         count = CountVectorizer()
         count_matrix = count.fit_transform(df['movieDirector'].apply(short)+' '+df['movieProtagonist'].apply(short)+' '+df['movieGenre'].apply(short)+' '+(round((df['avg_rating']).astype(float))).astype(str) )
@@ -175,7 +179,7 @@ def home():
 
         # For each movie that was rated by the user
         df_rated = df.loc[df['flag'] == 'Rated']
-
+        print(df_rated)
         for index1,row1 in df_rated.iterrows():
 
             # find the cosine similarity of all the movies for this specific movie
@@ -215,21 +219,23 @@ def home():
                 'movieDirector': results[x][3],
                 'movieProtagonist': results[x][4],
                 'movieGenre': results[x][5],
-                'User_rating': results[x][6],
-                'IMDBRating': results[x][7],
+                'User_rating': round(float(results[x][6]),2),
+                'IMDBRating': round(float(results[x][7]),2),
                 'total_people_rated': results[x][9],
                 'image_url': results[x][10],
-                'Flag': results[x][11],
-                'Price': results[x][13],
+                'Price': round(float(results[x][12]),2),
+            'discount': round(float(results[x][13]),2)
             })
             rank+=1
 
         df_rated = df_rated.sort_values(by='user_rating', axis=0, ascending=False, inplace=False, kind='quicksort',na_position='last')
         rated = []
+        df_rated['user_rating'] = (df_rated['user_rating']).astype(float).round(2)
+        df_rated['avg_rating'] = (df_rated['avg_rating']).astype(float).round(2)
         rated_movies = df_rated.to_dict('index')
         for index in rated_movies:
             rated.append(rated_movies[index])
-
+        print(top_10)
         return render_template('home.html',username=session['username'],data=data,data1=top_10,data2=rated)
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))
@@ -249,21 +255,21 @@ def index():
 def run():
     prediction = ' '
     cursor = mysql.cursor(pymysql.cursors.DictCursor)
-
+    print(session['id'])
     # Get all the movies for the user based on rated and non rated
     cursor.execute('select a.movieId,a.movieTitle,a.imdbId,a.movieDirector,'
                    'a.movieProtagonist,a.movieGenre,a.movieRank,a.avg_rating '
                    'AS user_rating,b.avg_rating,'
                    'b.total_ratings,a.Image,a.flag,'
-                   'a.price,a.price*2 AS discount FROM ((SELECT DISTINCT movieId,'
+                   'a.Price,a.Price*2 AS discount FROM ((SELECT DISTINCT movieId,'
                    'movieTitle,imdbId,movieDirector,movieProtagonist,'
-                   'movieGenre,movieRank,image,price*0.5 AS price,AVG(IMDBRating) AS avg_rating, '
+                   'movieGenre,movieRank,image,Price*0.5 AS price,AVG(IMDBRating) AS avg_rating, '
                    'COUNT(DISTINCT b.fkCustomerid) AS total_ratings,'
                    '"Not-Rated" AS flag FROM movies a LEFT JOIN movieRatings b ON a.movieId = b.fkmovieId'
                    ' WHERE movieId NOT IN (SELECT DISTINCT movieId FROM movies a LEFT JOIN movieRatings b '
                    'ON a.movieId = b.fkmovieId WHERE b.fkCustomerid = %s) GROUP BY 1,2,3,4,5,6,7,8,9 '
                    'ORDER BY 1,2,3,4,5,6,7,8,9)'
-                   ' UNION (SELECT DISTINCT movieId,movieTitle,imdbId,movieDirector,movieProtagonist,movieGenre,movieRank,image,price*0.5 AS price,AVG(rating) AS avg_rating, '
+                   ' UNION (SELECT DISTINCT movieId,movieTitle,imdbId,movieDirector,movieProtagonist,movieGenre,movieRank,image,Price*0.5 AS price,AVG(rating) AS avg_rating, '
                    'COUNT(DISTINCT b.fkCustomerid) AS total_ratings,"Rated" AS flag FROM movies a LEFT JOIN '
                    'movieRatings b ON a.movieId = b.fkmovieId WHERE b.fkCustomerid = %s '
                    'GROUP BY 1,2,3,4,5,6,7,8,9 ORDER BY 1,2,3,4,5,6,7,8,9)) a '
@@ -273,7 +279,8 @@ def run():
     cur = mysql.cursor(pymysql.cursors.DictCursor)
     cur.execute("select * from movies ")
     data = cur.fetchall()
-
+    print(data)
+    print(session['id'])
     #  STEP 1: Store in Data Frame
     results = []
     for row in cursor.fetchall():
@@ -336,13 +343,13 @@ def run():
             'movieDirector': results[x][3],
             'movieProtagonist': results[x][4],
             'movieGenre': results[x][5],
-            'User_rating': results[x][6],
-            'IMDBRating': results[x][7],
+            'User_rating': round(float(results[x][6]),2),
+            'IMDBRating': round(float(results[x][7]),2),
             'total_people_rated': results[x][9],
             'image_url': results[x][10],
             'Flag': results[x][11],
-            'Price': results[x][12],
-            'discount': results[x][13]
+            'Price': round(float(results[x][12]),2),
+            'discount': round(float(results[x][13]),2)
          })
         rank += 1
 

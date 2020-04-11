@@ -313,7 +313,7 @@ a:hover {
             <label>IMDB Rating</label>
           <span>{{item.IMDBRating}}</span>
              <label>Price</label>
-          <span>{{item.Price}}</span>
+          <span>{{item.discount}}</span>
         </div><!--seat-->
       </div>
     </div><!--movie-content-->
@@ -367,9 +367,6 @@ a:hover {
 
 </div>
 
-<!-- Footer -->
-<footer class="w3-center w3-black w3-padding-16">
-</footer>
 
 
   <!-- User rated movies -->
@@ -402,8 +399,8 @@ a:hover {
         </div><!--date,time-->
 
         <div class="info-section">
-          <label>User Rating Rating</label>
-          <span>{{item.user_rating}}</span>
+          <label>User Rating</label>
+            <span>{{item.user_rating}}</span>
             <label>IMDB Rating</label>
           <span>{{item.avg_rating}}</span>
                   <label>Price</label>
@@ -416,6 +413,11 @@ a:hover {
   {% endfor %}
   </div>
 </div>
+
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-16">
+</footer>
+
 <script>
 function myFunction() {
   var x = document.getElementById("myTopnav");

@@ -1,13 +1,22 @@
-﻿CREATE DATABASE IF NOT EXISTS `pythonlogin` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+﻿drop database pythonlogin;
+CREATE DATABASE IF NOT EXISTS `pythonlogin` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `pythonlogin`;
 
 CREATE TABLE IF NOT EXISTS `accounts` (
-	`id` int(11) NOT NULL,
+	`id` int(6) UNSIGNED NOT NULL DEFAULT '0',
   	`username` varchar(50) NOT NULL,
   	`password` varchar(255) NOT NULL,
   	`email` varchar(100) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+ALTER TABLE `accounts`
+  ADD PRIMARY KEY (`id`);
+COMMIT;
+
+ALTER TABLE `accounts`
+  MODIFY `id` mediumint(4) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+COMMIT;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -78,6 +87,13 @@ CREATE TABLE `movieRatings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+ALTER TABLE `movieRatings`
+  ADD PRIMARY KEY (`ratingID`);
+COMMIT;
+
+ALTER TABLE `movieRatings`
+  MODIFY `ratingID` mediumint(4) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+COMMIT;
 -- Dumping data for table `movieRatings`
 --
 
@@ -691,9 +707,7 @@ ALTER TABLE `movies`
   MODIFY `movieID` mediumint(4) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 COMMIT;
 
-alter table movies add Price decimal(5,2);
-
-Create table Price(id integer(10) primary key auto_increment, Price decimal(5,2), MovieID mediumint(4));
+ALTER TABLE movies ADD COLUMN Price DECIMAL(5,2);
 
 UPDATE movies SET Price = '48.64' WHERE movieID = 2;
 COMMIT;
