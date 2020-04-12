@@ -1,18 +1,33 @@
+Download PyCharm, Python version 3 and above
 
-TODO: Modify main.py to change the package of app configuration
-TODO: Clicking "medium" on the text will select "low", have to click on the radio to select middle.
+Import or copy and paste the 'pythonlogin.sql' file to your MySQL-> database name "pythonlogin".
 
-1.Import the 'pythonlogin.sql' file,
+Install DB Navigator on PyCharm.
+• Select File –> Settings –> Plugins
+• Search and Install “DB Navigator” package
 
-2.Download pycharm,
+Connect PyCharm to MySQL database.
+• Open DB Browser which will be under DB Navigator tab.
+• Press “+” on “DB Browser” –> select ‘MySQL’
+• Enter the required details host, username, password of your MySQL.
+• Test the connection and press ok if the test has succeeded.
 
-3.Open this folder in pycharm,
+Configure python settings
+• Select File –> Settings –> Project-> project interpreter
+• Click the setting icon -> Add-> New environment-> Location <project file path> and basic
+  
+Interpreter <browse through the downloaded python.exe file>
+• Click ‘OK’
+• Go to ‘main.py’ file
+• Select File –> Settings –> Project-> project interpreter
+• Add packages for the file to run by clicking the add icon -> search for Flask, Flask-MySQLdb,
+PyMySQL, mysql, pandas, sckit-learn, joblib.
+• Install the above packages.
+  
+Run the main.py file
 
-4.Make a database connection,
+Open the link to view the webpage http://127.0.0.1:5000/ -> this views the index page.(before login).
 
-5.Run the 'main.py' file,
-
-6.Click http://127.0.0.1:5000/ to open the login system this opens the browser. If it shows error, then you do the next step,
-
-7.In the browser open ->  http://127.0.0.1:5000/pythonlogin
-
+Testing:
+-> Once a person have the sql file imported in their database.
+-> go to login page and enter -> username: gary, password:gary18.
